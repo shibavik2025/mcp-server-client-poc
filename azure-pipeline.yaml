@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+      - "main"
+      - "release/*"
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      ref: main
+      name: ai-tso-devops/core-devops-ci
+
+parameters:
+  - name: skipChecks
+    displayName: Skip Checks
+    type: boolean
+    default: false
+
+extends:
+  template: ./templates/workstreams/coreappworkstream/python-base.yaml@templates
+  parameters:
+    projectName: "coreai-mcp-server-temp"
+    projectPath: "."
+    testReportsPath: "."
+    coverageReportsPath: "."
+    env: "dev"

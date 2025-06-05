@@ -1,0 +1,82 @@
+[project]
+name = "src"
+version = "0.1.0"
+description = "TEMP MCP Server"
+authors = []
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "uvicorn>=0.27.1",
+    "python-dotenv>=1.0.1",
+    "pydantic>=2.6.3",
+    "pydantic-settings>=2.1.0",
+    "toml>=0.10.2",
+    "loguru>=0.7.2",
+    "pyjwt[crypto]>=2.10.1",
+    "starlette>=0.46.2",
+    "fastapi>=0.115.12",
+    "types-toml>=0.10.8.7",
+    "pip==25.1.1",
+    "fastmcp>=2.5.1",
+]
+
+[project.scripts]
+start = "src.main:start"
+sonar-setup = "scripts.sonar_setup:sonar_setup"
+export-sonar-token = "scripts.export_sonar_token:export_sonar_token"
+sonar-scan = "scripts.sonar_scan:sonar_scan"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "httpx>=0.28.0",
+    "pytest-asyncio>=0.23.5",
+    "pre-commit>=3.6.1",
+    "pylint>=3.0.3",
+    "commitizen>=3.14.1",
+    "ruff>=0.2.1",
+    "isort>=5.13.2",
+    "pytest-mypy-plugins>=3.0.0",
+    "mypy>=1.9.0",
+    "safety>=3.5.1",
+]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "pep440"
+version_provider = "pep621"
+update_changelog_on_bump = true
+major_version_zero = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+minversion = 7.0
+addopts = "-ra -q --cov=src tests/ --cov-report html --cov-report xml --cov-report term-missing --mypy-extension-hook pytest_mypy_plugins.tests.reveal_type_hook.hook"
+pythonpath = [
+  ".", "src",
+]
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.coverage.run]
+branch = true
+relative_files = true
+
+[tool.coverage.report]
+exclude_also = ["if __name__ == .__main__.:",]
+fail_under = 95
+precision = 2
+show_missing = true
+
+[tool.ruff]
+exclude = [
+  ".venv",
+  ".mypy_cache",
+  ".ruff_cache",
+  ".coverage",
+  ".pytest_cache",
+]
