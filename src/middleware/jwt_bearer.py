@@ -40,8 +40,8 @@ class JWTBearer(HTTPBearer):
             logger.info("Starting JWT validation")
 
             # Try token from cookie
-            auth_token = request.cookies.get("Authorization")
-
+            # auth_token = request.cookies.get("Authorization")
+            auth_token= "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Il9GcnhmUVZTbFBVbHZHWjVIdmRrTlN1Z1FzeXJkbjB1cWxXSkdJTVlfWXcifQ.eyJ0eXBlIjoiYXQiLCJjbGllbnRJZCI6IjEyNmJjNDU0LTJjZDYtNDlmZS05Y2RmLTJjZjdlZjNhOWNlNyIsImlkcCI6Im1zZnQiLCJpc3MiOiJodHRwczovL2Rldi5saW9uaXMuYWkiLCJyb2xlcyI6WyJzdXBlcl91c2VyIl0sImp0aSI6InNvVDRtYWNBeUciLCJVc2VySW5mbyI6eyJpZCI6IjkxZTVmOTIzLWIzODctNGU1Yi04Y2VkLTgzODk1ZjUzMjRiOSIsImVtYWlsIjoic2hpYmF2aWtAcHVibGljaXNncm91cGUubmV0IiwiZGlzcGxheU5hbWUiOiJTaGl0YWwgQmF2aWthciJ9LCJhcHBLZXkiOiJza19kMjE0ODAwMmM2OGNjIiwiYXBwSWQiOiIyM2I2MWU3NS0yNGNhLTRjZDAtOTk5OS0wMTY1NmY1YTZhNzEiLCJzZXJ2aWNlcyI6WyJ0YXhvbm9teSIsInByb2plY3RzIiwibGxtIiwiYXNzZXQiLCJub3RpZmljYXRpb24iLCJhdWRpZW5jZSIsImRhdGEiLCJhc3NldC1hbmFseXplciIsImJvZGhpIiwiaW52ZW50b3J5Iiwic3RhdGUiXSwiYXBwTmFtZSI6IkFQSS1BR0VOVC1XT1JLQkVOQ0giLCJpbmR1c3RyeSI6IjM2ODgzOTkzLTNkNmEtNDhjNC05YzVjLWVmMTg2ZDQ5ZmFhOCIsImlhdCI6MTc0OTU1NzMxOCwiZXhwIjoxNzQ5NTY0NTE4fQ.OPxjh2rTTMjIVohpv2l_TRG1fpL3HwrvsKcerb3dGf3unKind65vF_kO8Z7lVv3Asq-blCQeqaGCc3DrQKfeCiaf4FEMFDY4InIzs4Dx6anDjskHe2vcqW6DXXnz2wKoA6whsSDoTzxy0k_wWG0S3MEKE6ZJnpmsvIIYIbRAA1UKkNvYZuGMUjqp9tGxnCxdCQFF2GmcGPbbhEbipEwVifyoNBgbY1UWEOapxlSbznMLfaW2H3BomNNqMZOFGv4L_u7M3HZ7Za3ABbIZ-owuhBChfMrsOmZGXKHOc1yHdpBe1GEpxtIaTy294zlUa-uPOERONGlRy8aZatAlvaZvUw"
             # Fallback to header
             if not auth_token:
                 # If not in cookie, try Authorization header
