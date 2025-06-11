@@ -7,7 +7,7 @@ from src.schemas.inventory import NoInput
 
 class LoadInventoryTool:
     async def execute(self, _: NoInput) -> List[Dict[str, str]]:
-        with open("data/inventory_data.json", "r") as f:
+        with open("data/retails-mockdata.json", "r") as f:
             inventory = json.load(f)
         logger.info("Loaded inventory data from JSON")
         return inventory
@@ -15,7 +15,7 @@ class LoadInventoryTool:
 
 class ForecastedDemandTool:
     async def execute(self, _: NoInput) -> List[Dict[str, str]]:
-        with open("data/inventory_data.json", "r") as f:
+        with open("data/retails-mockdata.json", "r") as f:
             inventory = json.load(f)
         logger.info("Calculating forecasted demand")
         return [
@@ -30,7 +30,7 @@ class ForecastedDemandTool:
 
 class ExpectedInventoryTool:
     async def execute(self, _: NoInput) -> List[Dict[str, str]]:
-        with open("data/inventory_data.json", "r") as f:
+        with open("data/retails-mockdata.json", "r") as f:
             inventory = json.load(f)
         logger.info("Calculating expected inventory")
         return [
@@ -45,7 +45,7 @@ class ExpectedInventoryTool:
 
 class PromotionCandidateTool:
     async def execute(self, _: NoInput) -> List[Dict[str, str]]:
-        with open("data/inventory_data.json", "r") as f:
+        with open("data/retails-mockdata.json", "r") as f:
             inventory = json.load(f)
         logger.info("Identifying promotion candidates")
         return [

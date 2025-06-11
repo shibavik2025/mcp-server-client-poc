@@ -8,17 +8,18 @@ from src.utils.auth import get_authorization_token
 from src.utils.ent_headers import add_ent_headers
 from src.core.logger import logger
 
-INVENTORY_FILE_PATH = "inventory.xlsx"
+INVENTORY_FILE_PATH = "data/inventory.xlsx"
 
 # Load Excel data once (or load inside each tool if dynamic reload needed)
 
 def load_inventory():
-    return pd.read_excel("inventory.xlsx")
+    return pd.read_excel("data/inventory.xlsx")
 
 
 class LoadInventoryTool(BaseTool[NoInput]):
     @property
     def name(self) -> str:
+        logger.info("Loaded inventory data from JSON")
         return "load_inventory"
 
     @property
@@ -31,6 +32,7 @@ class LoadInventoryTool(BaseTool[NoInput]):
 
     async def execute(self, input_data: NoInput, *args: Any) -> Any:
         # Example mock response
+        logger.info("Execute- Loaded inventory data from JSON")
         return [{"item_id": "ABC123", "quantity": 10}]
 
 

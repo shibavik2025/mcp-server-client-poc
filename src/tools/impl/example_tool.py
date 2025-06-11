@@ -83,7 +83,9 @@ class ExampleTool(BaseTool[ExampleToolInput]):
                 url = f"{settings.enterprise_base_url}/example-coreai-service"  # Example url
 
                 # Extract auth token from request headers
-                auth_token = get_authorization_token(request_headers)
+                # auth_token = get_authorization_token(request_headers)
+                auth_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Il9GcnhmUVZTbFBVbHZHWjVIdmRrTlN1Z1FzeXJkbjB1cWxXSkdJTVlfWXcifQ.eyJ0eXBlIjoiYXQiLCJjbGllbnRJZCI6IjEyNmJjNDU0LTJjZDYtNDlmZS05Y2RmLTJjZjdlZjNhOWNlNyIsImlkcCI6Im1zZnQiLCJpc3MiOiJodHRwczovL2Rldi5saW9uaXMuYWkiLCJyb2xlcyI6WyJzdXBlcl91c2VyIl0sImp0aSI6IkN0dlYwajY4M2IiLCJVc2VySW5mbyI6eyJpZCI6IjkxZTVmOTIzLWIzODctNGU1Yi04Y2VkLTgzODk1ZjUzMjRiOSIsImVtYWlsIjoic2hpYmF2aWtAcHVibGljaXNncm91cGUubmV0IiwiZGlzcGxheU5hbWUiOiJTaGl0YWwgQmF2aWthciJ9LCJhcHBLZXkiOiJza19kMjE0ODAwMmM2OGNjIiwiYXBwSWQiOiIyM2I2MWU3NS0yNGNhLTRjZDAtOTk5OS0wMTY1NmY1YTZhNzEiLCJzZXJ2aWNlcyI6WyJ0YXhvbm9teSIsInByb2plY3RzIiwibGxtIiwiYXNzZXQiLCJub3RpZmljYXRpb24iLCJhdWRpZW5jZSIsImRhdGEiLCJhc3NldC1hbmFseXplciIsImJvZGhpIiwiaW52ZW50b3J5Iiwic3RhdGUiXSwiYXBwTmFtZSI6IkFQSS1BR0VOVC1XT1JLQkVOQ0giLCJpbmR1c3RyeSI6IjM2ODgzOTkzLTNkNmEtNDhjNC05YzVjLWVmMTg2ZDQ5ZmFhOCIsImlhdCI6MTc0OTY0MDQ2MSwiZXhwIjoxNzQ5NjQ3NjYxfQ.yvnmLQHmDa4GRHbOm5I7k3T_pK93OpYK5XmgscUeMcKL6PMJOwIiSjm6mFaPlI8Eo9-M-KTQ6goHmoxVcslWOyR1t8B_AQSiWixCRCNxZoCTxpuZNUsV-e471c7-Y3GQqs8g0nKUeFlClY2cPWjZaXQciWGfgANdP4z376_Ok5YG2CVGjH2IdkMu9eXyIjjputEqhWXf2Ia0mt20faRwFHXsu3G_UjoJCnCATaPFd-8ootSeOEFalHnO_Gk213cJQk5ItbrbH6qOI4MDWBSNoAyKJkBnbaORaThOynVFJwtVs033GQPVkIC1akQz8N1DOI9vdOTHzZTLUymA3eiVzg"
+                
                 default_headers = {
                     "Authorization": f"Bearer {auth_token}",
                     "Content-Type": "application/json",

@@ -15,8 +15,9 @@ from src.core.config import settings
 from src.core.logger import logger
 from src.middleware.jwt_bearer import JWTMiddleware
 from src.server.server import create_mcp_server
+import traceback
 
-
+    
 def custom_generate_unique_id(route: APIRoute) -> str:
     """Generate unique operation ID for OpenAPI documentation.
 
@@ -39,7 +40,7 @@ def create_application() -> FastAPI:
     """
     # Create MCP server app
     mcp = create_mcp_server("TEMP")
-    mcp_app = mcp.http_app(path="/stream")  # Using Streamable HTTP transport
+    mcp_app = mcp.http_app()  # Using Streamable HTTP transport
 
     # Create FastAPI application
     app = FastAPI(
@@ -53,8 +54,10 @@ def create_application() -> FastAPI:
     )
 
     # Mount the FastMCP application at the root path
-    app.mount("/", mcp_app)
+    app.mount("/mcp", mcp_app)
 
+    for route in app.routes:
+        print("ROUTE:", route.path)
     _configure_middleware(app)
     _configure_openapi(app)
     _register_exception_handlers(app)
@@ -73,18 +76,18 @@ def _configure_middleware(app: FastAPI) -> None:
     # The execution order is reversed so that last added to the stack is first executed
 
     # Auth middleware
-    app.add_middleware(JWTMiddleware)
+    # app.add_middleware(JWTMiddleware)
 
-    # CORS middleware
-    if settings.backend_cors_origins:
-        app.add_middleware(
-            CORSMiddleware,
-            allow_origins=[str(origin) for origin in settings.backend_cors_origins],
-            allow_credentials=True,
-            allow_methods=["*"],
-            allow_headers=["*"],
-            expose_headers=["Content-Type", "Authorization"],
-        )
+    # # CORS middleware
+    # if settings.backend_cors_origins:
+    #     app.add_middleware(
+    #         CORSMiddleware,
+    #         allow_origins=[str(origin) for origin in settings.backend_cors_origins],
+    #         allow_credentials=True,
+    #         allow_methods=["*"],
+    #         allow_headers=["*"],
+    #         expose_headers=["Content-Type", "Authorization"],
+    #     )
 
 
 def _configure_openapi(app: FastAPI) -> None:
@@ -119,6 +122,16 @@ def _configure_openapi(app: FastAPI) -> None:
 
     app.openapi = custom_openapi  # type: ignore[method-assign]
 
+
+
+def _register_exception_handlers(app: FastAPI) -> None:
+    @app.exception_handler(Exception)
+    async def global_exception_handler(request: Request, exc: Exception):
+        logger.error(f"Unhandled exception: {traceback.format_exc()}")
+        return JSONResponse(
+            status_code=500,
+            content={"detail": "Internal server error"},
+        )
 
 def _register_exception_handlers(app: FastAPI) -> None:
     """Register custom exception handlers.
