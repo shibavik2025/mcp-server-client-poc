@@ -1,44 +1,41 @@
-import requests
- 
-# BASE_URL = "http://0.0.0.0:8000/api/v1/mcp-server-retail-temp/stream"
-BASE_URL="http://127.0.0.1:8000/mcp/"
- 
-def call_load_inventory():
-    headers = {
-        "Accept": "application/json, text/event-stream",
-        "Content-Type": "application/json",
-        "x-session-id": "test-session"
-    }
-    payload = {
-        "jsonrpc": "2.0",
-        "method": "load_inventory",
-        "params": {},
-        "id": 1
-    }
-    response = requests.post(BASE_URL, headers=headers, json=payload)
-    if response.status_code == 200:
-        print("Load Inventory Response:", response.json())
-    else:
-        print("Error:", response.status_code, response.text)
+import asyncio
+from fastmcp import Client
+from dotenv import load_dotenv
+import os
 
-def call_forecasted_demand():
-    headers = {
-        "Accept": "application/json, text/event-stream",
-        "Content-Type": "application/json",
-        "x-session-id": "test-session"
-    }
-    payload = {
-        "jsonrpc": "2.0",
-        "method": "forecasted_demand",
-        "params": {},
-        "id": 2
-    }
-    response = requests.post(BASE_URL, headers=headers, json=payload)
-    if response.status_code == 200:
-        print("Forecasted Demand Response:", response.json())
-    else:
-        print("Error:", response.status_code, response.text)
+# Load environment variables from .env file
+load_dotenv()
+
+# Retrieve the MCP URL from environment variables
+mcp_url = os.getenv("MCP_URL")
+
+client = Client(mcp_url)
+
+async def main():
+    # Connection is established here
+    async with client:
+        print(f"Client connected: {client.is_connected()}")
+
+        # Make MCP calls within the context
+        tools = await client.list_tools()
+        tool_names = [tool.name for tool in tools]
+        print("Available tool names:")
+        for name in tool_names:
+            print(f"- {name}")
+
+
+        #  # Call the list_inventory tool
+        result = await client.call_tool("list_inventory_json", {"input_data": {}})
+        print("list_inventory result:", result)
+    # Connection is closed automatically here
+    print(f"Client connected: {client.is_connected()}")
 
 if __name__ == "__main__":
-    call_load_inventory()
-    call_forecasted_demand()
+    asyncio.run(main())
+
+
+
+
+
+
+

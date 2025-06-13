@@ -58,24 +58,22 @@ def register_tools(mcp: FastMCP[Any]) -> None:
    
 
     @mcp.tool()
-    async def load_inventory(input_data: NoInput) -> List[Dict[str, str]]:
-        request_headers = get_http_headers()
-        logger.info(f"Request headers: {request_headers}")
-        logger.info(f"All header keys: {list(request_headers.keys())}")
+    async def list_inventory_excel(input_data: NoInput) -> List[Dict[str, str]]:
+        logger.info("list_inventory excel called.")
+       
 
         return await execute_tool(
             LoadInventoryTool(),
             input_data,
-            "load_inventory",
-            request_headers=request_headers,
+            "load_inventory"
         )
 
    
     # @mcp.tool() registers the function as an MCP tool endpoint.
 
     @mcp.tool()
-    async def list_inventory(input_data: NoInput) -> List[Dict]:
-        logger.info("list_inventory called.")
+    async def list_inventory_json(input_data: NoInput) -> List[Dict]:
+        logger.info("list_inventory json called.")
         try:
             return await inventory_tool.list_items()
         except ValidationError as e:
