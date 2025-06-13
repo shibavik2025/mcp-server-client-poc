@@ -1,2 +1,19 @@
 .env
 .venv
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore virtual environments
+.venv/
+env/
+
+# Ignore logs and coverage reports
+logs/
+htmlcov/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
