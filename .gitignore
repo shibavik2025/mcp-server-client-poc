@@ -17,3 +17,10 @@ htmlcov/
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+
+
+# Ignore logs and coverage reports
+logs/
+htmlcov/
+.pytest_cache/
