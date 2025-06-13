@@ -15,7 +15,7 @@ def create_mcp_server(server_name: str) -> FastMCP[Any]:
         server_name: Custom name for the server.
 
     Returns:
-        Configured FastMCP server instance ready for use
+        Configured FastMCP server instance ready for use 
 
     Raises:
         Exception: If tool registration fails
@@ -23,7 +23,7 @@ def create_mcp_server(server_name: str) -> FastMCP[Any]:
     name = server_name
 
     try:
-        mcp: FastMCP[Any] = FastMCP(name)
+        mcp: FastMCP[Any] = FastMCP(name) 
         register_tools(mcp)
         return mcp
     except Exception as e:  # pylint: disable=broad-exception-caught

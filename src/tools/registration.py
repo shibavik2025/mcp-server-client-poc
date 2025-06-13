@@ -63,7 +63,6 @@ def register_tools(mcp: FastMCP[Any]) -> None:
         logger.info(f"Request headers: {request_headers}")
         logger.info(f"All header keys: {list(request_headers.keys())}")
 
-       
         return await execute_tool(
             LoadInventoryTool(),
             input_data,
@@ -72,7 +71,8 @@ def register_tools(mcp: FastMCP[Any]) -> None:
         )
 
    
-    
+    # @mcp.tool() registers the function as an MCP tool endpoint.
+
     @mcp.tool()
     async def list_inventory(input_data: NoInput) -> List[Dict]:
         logger.info("list_inventory called.")

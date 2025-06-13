@@ -38,9 +38,10 @@ def create_application() -> FastAPI:
     Returns:
         Configured FastAPI application instance
     """
-    # Create MCP server app
+    # Create MCP server app 
+    # MCP Model Context Protocol is an open protocol that standardizes how applications provide context to LLMs. 
     mcp = create_mcp_server("TEMP")
-    mcp_app = mcp.http_app()  # Using Streamable HTTP transport
+    mcp_app = mcp.http_app()  
 
     # Create FastAPI application
     app = FastAPI(
